@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Dynamic Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+    <div class="calc-container">
+        <div class="calc-header">
+            <button class="menu-icon" aria-label="Menu">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="toggle-switch">
+                <button class="toggle-btn active" id="calcModeBtn">Calculator</button>
+                <button class="toggle-btn" id="converterModeBtn">Converter</button>
+            </div>
+            <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme">
+                <i class="bi bi-moon-stars" id="themeIcon"></i>
+            </button>
+        </div>
+
+        <div class="calc-screen">
+            <div class="expression" id="expressionDisplay">100 + 49 + 7 + 451 + 30</div>
+            <div class="result" id="resultDisplay">637</div>
+        </div>
+
+        <div class="calc-grid">
+            <button class="calc-btn action" data-action="clear">AC</button>
+            <button class="calc-btn action" data-action="delete"><i class="bi bi-backspace"></i></button>
+            <button class="calc-btn action operator" data-action="percent">%</button>
+            <button class="calc-btn operator" data-val="/">÷</button>
+
+            <button class="calc-btn" data-val="7">7</button>
+            <button class="calc-btn" data-val="8">8</button>
+            <button class="calc-btn" data-val="9">9</button>
+            <button class="calc-btn operator" data-val="*">×</button>
+
+            <button class="calc-btn" data-val="4">4</button>
+            <button class="calc-btn" data-val="5">5</button>
+            <button class="calc-btn" data-val="6">6</button>
+            <button class="calc-btn operator" data-val="-">−</button>
+
+            <button class="calc-btn" data-val="1">1</button>
+            <button class="calc-btn" data-val="2">2</button>
+            <button class="calc-btn" data-val="3">3</button>
+            <button class="calc-btn operator" data-val="+">+</button>
+
+            <button class="calc-btn" data-action="negate">±</button>
+            <button class="calc-btn" data-val="0">0</button>
+            <button class="calc-btn" data-val=".">.</button>
+            <button class="calc-btn operator equals" data-action="calculate">=</button>
+        </div>
+    </div>
+
+    <script src="App..js"></script>
+</body>
+</html>

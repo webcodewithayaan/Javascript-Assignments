@@ -1,0 +1,169 @@
+:root {
+    --bg-color: #f8f9fa;
+    --calc-bg: #ffffff;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --btn-bg: #ffffff;
+    --btn-text: #212529;
+    --btn-action-bg: #e9ecef;
+    --btn-action-text: #0d9488;
+    --accent-color: #0d9488;
+    --accent-light: #ccfbf1;
+    --shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    --bg-color: #12181b;
+    --calc-bg: #222e35;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --btn-bg: #2a373f;
+    --btn-text: #ffffff;
+    --btn-action-bg: #334155;
+    --btn-action-text: #2dd4bf;
+    --accent-color: #0d9488;
+    --accent-light: #115e59;
+    --shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Calculator Container Frame */
+.calc-container {
+    background-color: var(--calc-bg);
+    width: 100%;
+    max-width: 375px;
+    border-radius: 32px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header UI Elements */
+.calc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.menu-icon, .theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.menu-icon:hover, .theme-toggle:hover {
+    color: var(--text-primary);
+}
+
+.toggle-switch {
+    background-color: var(--btn-action-bg);
+    padding: 4px;
+    border-radius: 20px;
+    display: flex;
+    gap: 4px;
+}
+
+.toggle-btn {
+    border: none;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.toggle-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Screen Display Sections */
+.calc-screen {
+    text-align: right;
+    margin-bottom: 24px;
+    padding: 0 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.expression {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    min-height: 22px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+.result {
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+/* Core Pad Grid Layout */
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+/* Individual Button Aesthetics */
+.calc-btn {
+    border: none;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 1.35rem;
+    font-weight: 400;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.calc-btn:active {
+    transform: scale(0.92);
+    opacity: 0.8;
+}
+
+/* Functional Utility Action Keys */
+.calc-btn.action {
+    background-color: var(--btn-action-bg);
+    color: var(--btn-action-text);
+}
+
+/* Operator Keys */
+.calc-btn.operator {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+}
+
+[data-theme="dark"] .calc-btn.operator {
+    background-color: var(--btn-bg);
+}
+
+/* Equal Custom Styling */
+.calc-btn.equals {
+    background-color: var(--accent-color);
+    color: white;
+}

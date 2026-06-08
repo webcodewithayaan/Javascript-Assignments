@@ -1,0 +1,98 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #39039c;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Counter Container */
+.counter-container {
+    background: #ffffff;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Dynamic Counter Value */
+#value {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+}
+
+/* Buttons Styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn {
+    background: none;
+    border: 2px solid #333;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex: 1;
+}
+
+/* Individual Button States */
+.btn-decrease {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.btn-decrease:hover {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.btn-reset {
+    color: #6b7280;
+    border-color: #6b7280;
+}
+
+.btn-reset:hover {
+    background-color: #6b7280;
+    color: #fff;
+}
+
+.btn-increase {
+    color: #10b981;
+    border-color: #10b981;
+}
+
+.btn-increase:hover {
+    background-color: #10b981;
+    color: #fff;
+}
+
+/* Button click effect */
+.btn:active {
+    transform: scale(0.95);
+}

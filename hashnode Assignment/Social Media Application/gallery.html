@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Gallery </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+        }
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-card: #ffffff;
+            --glass-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-gradient); min-height: 100vh; color: var(--text-main); }
+        
+        .app-container { display: grid; grid-template-columns: 280px 1fr; max-width: 1200px; margin: 0 auto; gap: 25px; padding: 25px 15px; }
+        .sidebar-left { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 25px; }
+        .brand-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .nav-menu { list-style: none; }
+        .nav-item a { display: flex; align-items: center; gap: 15px; padding: 14px 18px; color: var(--text-main); text-decoration: none; border-radius: 12px; margin-bottom: 8px; font-weight: 500; }
+        .nav-item.active a { background: var(--accent); color: #fff; }
+
+        .gallery-wrapper { display: flex; flex-direction: column; gap: 20px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; margin-top: 15px; }
+        
+        .gallery-item { background: var(--glass-card); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; height: 220px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .media-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; color: #fff; backdrop-filter: blur(5px); }
+
+        @media (max-width: 900px) {
+            .app-container { grid-template-columns: 1fr; }
+            .sidebar-left { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar-left">
+            <div class="brand-logo"><i class="fas fa-mug-hot"></i> <span>Elixir Hub</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-home"></i> Home Feed</a></li>
+                <li class="nav-item"><a href="profile.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-user"></i> My Profile</a></li>
+                <li class="nav-item active"><a href="gallery.html" style="color:#fff; text-decoration:none;"><i class="fas fa-images"></i> Media Gallery</a></li>
+                <li class="nav-item"><a href="settings.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="gallery-wrapper">
+            <h2 style="font-size:1.5rem; font-weight:700;">Media Gallery Vault</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-top:-10px;">Auto-compiled visualization array from your active publications.</p>
+            <div class="gallery-grid" id="galleryGridNode"></div>
+        </main>
+    </div>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(!currentUser) { window.location.href = 'login.html'; }
+
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
+        function compileGallery() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            // Filter out current user's posts containing media elements
+            const userMediaPosts = posts.filter(p => p.userId === currentUser.id && (p.image || p.video));
+            
+            const grid = document.getElementById('galleryGridNode');
+            grid.innerHTML = '';
+
+            if(userMediaPosts.length === 0) {
+                grid.style.display = 'block';
+                grid.innerHTML = `<div class='gallery-item' style='width:100%; height:auto; padding:40px; text-align:center; color:var(--text-muted); background:var(--glass-card); border-radius:20px;'>No photos or videos mapped to your account signatures inside database storage nodes.</div>`;
+                return;
+            }
+
+            userMediaPosts.forEach(post => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                if(post.image) {
+                    item.innerHTML = `<span class="media-badge"><i class="fas fa-image"></i> Photo</span><img src="${post.image}" alt="Media Resource">`;
+                } else if(post.video) {
+                    item.innerHTML = `<span class="media-badge"><i class="fas fa-video"></i> Video</span><video src="${post.video}" autoplay muted loop></video>`;
+                }
+                grid.appendChild(item);
+            });
+        }
+
+        compileGallery();
+    </script>
+</body>
+</html>

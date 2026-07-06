@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forkify - Search Recipe</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <header class="header">
+      <div class="logo">🍴 <span>forkify</span></div>
+
+      <form class="search-form" id="search-form">
+        <input type="text" id="search-input" placeholder="Search over 1,000,000 recipes...">
+        <button type="submit" class="btn-search">🔍 Search</button>
+      </form>
+
+      <nav class="nav">
+        <button class="nav-btn" id="btn-bookmarks">🔖 Bookmarks <span id="bookmark-count"></span></button>
+      </nav>
+    </header>
+
+    <div class="content">
+
+      <div class="search-results">
+        <ul class="results-list" id="results-list"></ul>
+
+        <div class="pagination" id="pagination"></div>
+
+        <p class="copyright">
+          &copy; Recipe data by <a href="https://forkify-api.herokuapp.com" target="_blank" rel="noopener">Forkify API</a>
+        </p>
+      </div>
+
+      <div class="recipe-panel" id="recipe-panel">
+        <div class="message" id="message">
+          <span class="icon">🙂</span>
+          <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

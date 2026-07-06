@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <div class="city-switcher" id="city-switcher"></div>
+
+    <div class="phone" id="phone">
+      <div class="notch"></div>
+
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <span class="icons">📶 📡 🔋</span>
+      </div>
+
+      <div class="weather-screen" id="weather-screen">
+        <div class="location">
+          <h1 class="city" id="city">Bariloche</h1>
+          <p class="temp" id="temp">30°</p>
+          <p class="condition" id="condition">Snow</p>
+          <p class="hi-lo" id="hi-lo">H:36° L:22°</p>
+        </div>
+
+        <p class="summary" id="summary">Windy conditions from 3PM–5PM, with heavy snow expected at 6PM.</p>
+
+        <div class="hourly-card">
+          <p class="section-label"><span class="clock">🕐</span> HOURLY FORECAST</p>
+          <div class="hourly-row" id="hourly-row"></div>
+        </div>
+
+        <div class="daily-card">
+          <p class="section-label"><span class="calendar">📅</span> 10-DAY FORECAST</p>
+          <div class="daily-list" id="daily-list"></div>
+        </div>
+
+        <div class="bottom-icons">
+          <span>📍</span>
+          <span>📍</span>
+          <span>☰</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-row">
+      <input type="text" id="search-input" placeholder="Search for a city...">
+      <button id="search-btn">Search</button>
+    </div>
+    <p class="hint" id="hint"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

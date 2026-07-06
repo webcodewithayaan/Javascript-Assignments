@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS variables and global styling replicated for consistency across screens */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; transition: background 0.3s, color 0.3s; }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; color: var(--text-main); }
+        .theme-toggle { position: absolute; top: 20px; right: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-main); padding: 10px 15px; border-radius: 50px; cursor: pointer; backdrop-filter: blur(10px); }
+        .auth-container { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); width: 100%; max-width: 450px; border-radius: 20px; padding: 40px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); animation: fadeIn 0.5s ease-out; }
+        .auth-header { text-align: center; margin-bottom: 30px; }
+        .auth-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .auth-header p { color: var(--text-muted); font-size: 0.95rem; }
+        .form-group { position: relative; margin-bottom: 20px; }
+        .form-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .form-control { width: 100%; padding: 14px 15px 14px 45px; background: rgba(0, 0, 0, 0.1); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-main); font-size: 1rem; outline: none; }
+        [data-theme="light"] .form-control { background: rgba(255, 255, 255, 0.5); }
+        .btn-auth { width: 100%; padding: 14px; background: var(--accent); border: none; border-radius: 10px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .btn-auth:hover { background: var(--accent-hover); }
+        .divider { text-align: center; margin: 20px 0; position: relative; color: var(--text-muted); font-size: 0.85rem; }
+        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--glass-border); }
+        .divider::before { left: 0; } .divider::after { right: 0; }
+        .btn-google { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-main); font-size: 0.95rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .auth-footer { text-align: center; margin-top: 25px; font-size: 0.95rem; color: var(--text-muted); }
+        .auth-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .error-msg { color: var(--error); font-size: 0.85rem; margin-top: 5px; display: none; text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Login to your custom account</p>
+        </div>
+
+        <div class="error-msg" id="loginError">Invalid Username/Email or Password!</div>
+        <br>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="loginId" class="form-control" placeholder="Username or Email" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="btn-auth">Login</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <button class="btn-google" onclick="alert('Google Auth UI Only!')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_活跃观众_Icon.svg" width="18" alt="Google"> Continue with Google
+        </button>
+
+        <div class="auth-footer">
+            Don't have an account? <a href="register.html">Register</a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.innerHTML = currentTheme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            let newTheme = theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Login Logic
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const loginId = document.getElementById('loginId').value.trim().toLowerCase();
+            const loginPassword = document.getElementById('loginPassword').value;
+            const loginError = document.getElementById('loginError');
+
+            loginError.style.display = 'none';
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Find user matching conditions
+            const validUser = users.find(u => (u.username === loginId || u.email.toLowerCase() === loginId) && u.password === loginPassword);
+
+            if(validUser) {
+                localStorage.setItem('currentUser', JSON.stringify(validUser));
+                window.location.href = 'index.html'; // Redirect to Home Feed
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

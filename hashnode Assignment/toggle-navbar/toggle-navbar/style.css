@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Verdana, Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 30px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 10;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+.brand span {
+  color: #3b7ddd;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: color 0.15s;
+}
+
+.nav-links a:hover {
+  color: #3b7ddd;
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+  font-size: 1rem;
+}
+
+.socials a {
+  text-decoration: none;
+}
+
+.btn-toggle {
+  display: none;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #222;
+}
+
+.content {
+  padding: 60px 30px;
+  text-align: center;
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content h1 {
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 15;
+  display: none;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* Mobile sidebar */
+@media (max-width: 720px) {
+  .nav-links,
+  .socials {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    height: 100vh;
+    width: 220px;
+    background: #fff;
+    flex-direction: column;
+    padding: 80px 30px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+    transition: left 0.3s ease;
+    z-index: 20;
+  }
+
+  .socials {
+    top: auto;
+    bottom: 0;
+    height: auto;
+    padding: 20px 30px;
+    flex-direction: row;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .nav-links.show {
+    left: 0;
+  }
+
+  .socials {
+    display: none;
+  }
+
+  .btn-toggle {
+    display: block;
+  }
+
+  .nav-links li {
+    margin-bottom: 10px;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #c0143c;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: none;
+  }
+
+  .nav-links.show .close-btn {
+    display: block;
+  }
+}

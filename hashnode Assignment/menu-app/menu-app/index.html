@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Application</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main>
+    <h1>Our Menu</h1>
+    <p class="subtitle">Everything you need, all in one place</p>
+
+    <div class="btn-container" id="btn-container">
+      <button class="filter-btn active" data-category="all">All</button>
+      <button class="filter-btn" data-category="breakfast">Breakfast</button>
+      <button class="filter-btn" data-category="lunch">Lunch</button>
+      <button class="filter-btn" data-category="dinner">Dinner</button>
+      <button class="filter-btn" data-category="drinks">Drinks</button>
+    </div>
+
+    <div class="menu-grid" id="menu-grid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed &amp; Developed by <span>Ayaan</span> 🍽️</p>
+    <p class="copy">© <span id="year"></span> All Rights Reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

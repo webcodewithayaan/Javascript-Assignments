@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Shared root color configuration system engine architecture models */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+        }
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-card: #ffffff;
+            --glass-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-gradient); min-height: 100vh; color: var(--text-main); }
+        
+        .app-container { display: grid; grid-template-columns: 280px 1fr; max-width: 1200px; margin: 0 auto; gap: 25px; padding: 25px 15px; }
+        .sidebar-left { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 25px; }
+        .brand-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .nav-menu { list-style: none; }
+        .nav-item a { display: flex; align-items: center; gap: 15px; padding: 14px 18px; color: var(--text-main); text-decoration: none; border-radius: 12px; margin-bottom: 8px; font-weight: 500; }
+        .nav-item.active a { background: var(--accent); color: #fff; }
+
+        /* Profile Structural Designs Architecture */
+        .profile-container { display: flex; flex-direction: column; gap: 25px; }
+        .profile-header-card { background: var(--glass-card); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; position: relative; }
+        .cover-photo-wrapper { height: 220px; width: 100%; background: #222; }
+        .cover-photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .profile-meta-row { padding: 0 30px 30px 30px; position: relative; display: flex; justify-content: space-between; align-items: flex-end; }
+        .avatar-holder { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--glass-card); overflow: hidden; margin-top: -60px; background: #111; }
+        .avatar-holder img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .profile-details-block { margin-top: 15px; padding: 0 30px 25px 30px; }
+        .profile-details-block h2 { font-size: 1.6rem; font-weight: 700; }
+        .profile-details-block p.user-handle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; }
+        .profile-details-block p.bio-text { font-size: 1rem; color: var(--text-main); line-height: 1.5; max-width: 600px; }
+
+        .btn-edit-profile { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; height: fit-content;}
+        .btn-edit-profile:hover { background: rgba(255,255,255,0.05); }
+
+        .metrics-counter-bar { display: flex; gap: 35px; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); padding: 15px 30px; }
+        .metric-item { display: flex; gap: 8px; font-size: 1rem; }
+        .metric-item strong { color: var(--text-main); font-weight: 700; }
+        .metric-item span { color: var(--text-muted); }
+
+        /* Specific User Feed Customization Target List Cards */
+        .feed-section-header { font-size: 1.2rem; font-weight: 600; margin-top: 10px; margin-bottom: -5px;}
+        .post-card { background: var(--glass-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; }
+        .post-author-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .post-media-box { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 15px; background: #000; max-height:400px; }
+        .post-media-box img, .post-media-box video { width: 100%; height: auto; display: block; }
+        .post-stats-actions { display: flex; gap: 20px; border-top: 1px solid var(--glass-border); padding-top: 15px; margin-top: 15px; }
+        .action-link { background: transparent; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        @media (max-width: 900px) {
+            .app-container { grid-template-columns: 1fr; }
+            .sidebar-left { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar-left">
+            <div class="brand-logo"><i class="fas fa-mug-hot"></i> <span>Elixir Hub</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-home"></i> Home Feed</a></li>
+                <li class="nav-item active"><a href="profile.html" style="color:#fff; text-decoration:none;"><i class="fas fa-user"></i> My Profile</a></li>
+                <li class="nav-item"><a href="gallery.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-images"></i> Media Gallery</a></li>
+                <li class="nav-item"><a href="settings.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="profile-container">
+            <div class="profile-header-card">
+                <div class="cover-photo-wrapper">
+                    <img src="" id="coverDisplay" alt="Cover">
+                </div>
+                <div class="profile-meta-row">
+                    <div class="avatar-holder">
+                        <img src="" id="avatarDisplay" alt="Avatar">
+                    </div>
+                    <a href="edit-profile.html" class="btn-edit-profile"><i class="fas fa-pen"></i> Edit Profile</a>
+                </div>
+                <div class="profile-details-block">
+                    <h2 id="nameDisplay">---</h2>
+                    <p class="user-handle" id="userHandleDisplay">@---</p>
+                    <p class="bio-text" id="bioDisplay">No custom descriptive records found inside database configuration system models.</p>
+                </div>
+                <div class="metrics-counter-bar">
+                    <div class="metric-item"><strong id="postCountNode">0</strong> <span>Posts</span></div>
+                    <div class="metric-item"><strong>1.5K</strong> <span>Followers</span></div>
+                    <div class="metric-item"><strong>382</strong> <span>Following</span></div>
+                </div>
+            </div>
+
+            <h3 class="feed-section-header">My Publications</h3>
+            <div id="personalUserFeedDeck" style="display: flex; flex-direction: column; gap: 20px;"></div>
+        </main>
+    </div>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(!currentUser) { window.location.href = 'login.html'; }
+
+        // Load Theme state configs variables automatically 
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
+        // Populate basic DOM metadata information components structures
+        document.getElementById('coverDisplay').src = currentUser.coverPhoto;
+        document.getElementById('avatarDisplay').src = currentUser.profilePic;
+        document.getElementById('nameDisplay').innerText = currentUser.fullName;
+        document.getElementById('userHandleDisplay').innerText = '@' + currentUser.username;
+        document.getElementById('bioDisplay').innerText = currentUser.bio || 'No status description added yet.';
+
+        // Render target contextual personalized filtered posts datasets
+        function renderUserPosts() {
+            const globalPosts = JSON.parse(localStorage.getItem('posts')) || [];
+            // FILTER RULE: Only show posts created by this explicit system identification credentials block
+            const filteredPosts = globalPosts.filter(p => p.userId === currentUser.id);
+            
+            document.getElementById('postCountNode').innerText = filteredPosts.length;
+            const deck = document.getElementById('personalUserFeedDeck');
+            deck.innerHTML = '';
+
+            if(filteredPosts.length === 0) {
+                deck.innerHTML = `<div class='post-card' style='text-align:center; color: var(--text-muted);'>You haven't posted anything yet.</div>`;
+                return;
+            }
+
+            filteredPosts.forEach(post => {
+                let mediaElement = '';
+                if(post.image) mediaElement = `<div class="post-media-box"><img src="${post.image}"></div>`;
+                if(post.video) mediaElement = `<div class="post-media-box"><video src="${post.video}" controls></video></div>`;
+
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `
+                    <div class="post-author-row">
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <img src="${post.avatar}" class="avatar-holder" style="width:40px; height:40px; margin:0;" alt="Pic">
+                            <div>
+                                <h4 style="font-size:0.95rem; font-weight:600;">${post.authorName}</h4>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">${post.timestamp}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.95rem; line-height:1.5;">${post.caption}</p>
+                    ${mediaElement}
+                    <div class="post-stats-actions">
+                        <span class="action-link"><i class="fas fa-heart"></i> ${post.likes.length} Likes</span>
+                    </div>
+                `;
+                deck.appendChild(card);
+            });
+        }
+
+        renderUserPosts();
+    </script>
+</body>
+</html>

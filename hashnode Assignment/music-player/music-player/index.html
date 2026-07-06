@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Music Player</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="player">
+    <img src="" alt="cover art" class="cover" id="cover">
+
+    <h2 class="title" id="title"></h2>
+    <p class="artist" id="artist"></p>
+
+    <div class="progress-container" id="progress-container">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <div class="time-row">
+      <span id="current-time">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+
+    <div class="controls">
+      <button id="prev" aria-label="previous">⏮️</button>
+      <button id="play" aria-label="play">▶️</button>
+      <button id="next" aria-label="next">⏭️</button>
+    </div>
+
+    <audio id="audio"></audio>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

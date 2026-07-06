@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+        }
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-card: #ffffff;
+            --glass-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-gradient); min-height: 100vh; color: var(--text-main); }
+        
+        .app-container { display: grid; grid-template-columns: 280px 1fr; max-width: 1200px; margin: 0 auto; gap: 25px; padding: 25px 15px; }
+        .sidebar-left { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 25px; }
+        .brand-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .nav-menu { list-style: none; }
+        .nav-item a { display: flex; align-items: center; gap: 15px; padding: 14px 18px; color: var(--text-main); text-decoration: none; border-radius: 12px; margin-bottom: 8px; font-weight: 500; }
+        .nav-item.active a { background: var(--accent); color: #fff; }
+
+        .settings-card { background: var(--glass-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--glass-border); }
+        .setting-row:last-child { border-bottom: none; }
+        
+        /* Select Dropdown styling styling components options fields layout */
+        .select-input { background: rgba(0,0,0,0.2); color: var(--text-main); border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 8px; outline: none; cursor: pointer; font-size: 0.95rem;}
+        [data-theme="light"] .select-input { background: rgba(255,255,255,0.8); color: #000; }
+
+        @media (max-width: 900px) {
+            .app-container { grid-template-columns: 1fr; }
+            .sidebar-left { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar-left">
+            <div class="brand-logo"><i class="fas fa-mug-hot"></i> <span>Elixir Hub</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-home"></i> Home Feed</a></li>
+                <li class="nav-item"><a href="profile.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-user"></i> My Profile</a></li>
+                <li class="nav-item"><a href="gallery.html" style="color:var(--text-main); text-decoration:none;"><i class="fas fa-images"></i> Media Gallery</a></li>
+                <li class="nav-item active"><a href="settings.html" style="color:#fff; text-decoration:none;"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main style="display:flex; flex-direction:column; gap:20px;">
+            <div class="settings-card">
+                <h2 style="font-size:1.4rem; font-weight:700; margin-bottom: 20px;"><i class="fas fa-sliders-h" style="margin-right:10px; color:var(--accent);"></i> Application Preferences</h2>
+                
+                <div class="setting-row">
+                    <div>
+                        <h4 style="font-size:1rem; font-weight:600;">Visual Interface Theme Mode</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">Switch between application dark or light mode setups.</p>
+                    </div>
+                    <select class="select-input" id="themeEngineSelect">
+                        <option value="dark">Dark Theme Mode</option>
+                        <option value="light">Light Theme Mode</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <div>
+                        <h4 style="font-size:1rem; font-weight:600;">Local Database Factory Options</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">Reset application records and clean system cache stores.</p>
+                    </div>
+                    <button class="select-input" style="background:#ef4444; color:#fff; border:none;" onclick="if(confirm('Purge all database local structures? This operations logs you out immediately.')){localStorage.clear(); window.location.href='register.html';}">Clear Database</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(!currentUser) { window.location.href = 'login.html'; }
+
+        // Setup current layout parameters configurations parameters values
+        const activeTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', activeTheme);
+        document.getElementById('themeEngineSelect').value = activeTheme;
+
+        // Sync theme selection modifications changes records tracking operations 
+        document.getElementById('themeEngineSelect').addEventListener('change', (e) => {
+            const chosenTheme = e.target.value;
+            document.documentElement.setAttribute('data-theme', chosenTheme);
+            localStorage.setItem('theme', chosenTheme);
+        });
+    </script>
+</body>
+</html>
